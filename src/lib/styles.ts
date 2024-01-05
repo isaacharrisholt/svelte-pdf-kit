@@ -1,7 +1,7 @@
 export type Styles = {
-  thing: string
+	thing: string
 }
 
 export type StylesheetDefinition = {
-  [key: string]: Styles | StylesheetDefinition
+	[key: string]: Styles | StylesheetDefinition
 }
