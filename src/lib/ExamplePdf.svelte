@@ -26,11 +26,11 @@
 		<Text font="Poppins" align="right" columns={2} style="italic" weight="medium"
 			>Another line</Text
 		>
-		<Image src="/favicon.png" alt="" options={{ width: 50 }} />
+		<Image src="/favicon.png" alt="" width={50} />
 	</Page>
 
 	<Page>
 		<Text font="Poppins" align="center">This is page 2!</Text>
-		<Image src="/favicon.png" alt="" options={{ width: 150 }} />
+		<Image src="/favicon.png" alt="" width={150} />
 	</Page>
 </Document>
