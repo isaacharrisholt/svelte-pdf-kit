@@ -11,7 +11,7 @@
 	const fonts = weights.flatMap((weight) => styles.map((style) => ({ weight, style })))
 </script>
 
-<Document style={{}} cleanup={false}>
+<Document autoFirstPage debug={false}>
 	<Font
 		src={fonts.map(({ weight, style }) => ({
 			src: `https://cdn.jsdelivr.net/fontsource/fonts/poppins@latest/latin-${weight}-${style}.ttf`,
@@ -29,7 +29,7 @@
 		<Image src="/favicon.png" alt="" width={50} />
 	</Page>
 
-	<Page>
+	<Page orientation="landscape">
 		<Text font="Poppins" align="center">This is page 2!</Text>
 		<Image src="/favicon.png" alt="" width={150} />
 	</Page>

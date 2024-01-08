@@ -24,7 +24,7 @@ export class PDF<TProps extends Record<string, any>> {
 		private component: typeof SvelteComponent<TProps>,
 		private props: TProps,
 		private fetch = DEFAULT_FETCH,
-	) {}
+	) { }
 
 	public async toFile(path: string): Promise<PDFResult<string>> {
 		const { data, error } = await this.generatePdfKitSource()
