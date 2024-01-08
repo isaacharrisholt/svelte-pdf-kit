@@ -17,20 +17,23 @@ import { fetchFile } from './utils'
 import { Fonts } from './fonts'
 
 type FixedElement = {
-	beforePos: { x: number; y: number },
-	afterPos: { x: number; y: number },
-} & ({
-	type: 'text',
-	text: string,
-	fontFamily: string | null,
-	fontStyle: FontStyle | null,
-	fontWeight: FontWeight | null,
-	options?: TextOptions,
-} | {
-	type: 'image',
-	src: string,
-	options?: ImageOptions,
-})
+	beforePos: { x: number; y: number }
+	afterPos: { x: number; y: number }
+} & (
+	| {
+			type: 'text'
+			text: string
+			fontFamily: string | null
+			fontStyle: FontStyle | null
+			fontWeight: FontWeight | null
+			options?: TextOptions
+	  }
+	| {
+			type: 'image'
+			src: string
+			options?: ImageOptions
+	  }
+)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class PDF<TProps extends Record<string, any>> {
@@ -43,7 +46,7 @@ export class PDF<TProps extends Record<string, any>> {
 		private component: typeof SvelteComponent<TProps>,
 		private props: TProps,
 		private fetch = DEFAULT_FETCH,
-	) { }
+	) {}
 
 	public async toFile(path: string): Promise<PDFResult<string>> {
 		const { data, error } = await this.generatePdfKitSource()
@@ -201,7 +204,14 @@ export class PDF<TProps extends Record<string, any>> {
 			console.log({ x: pdf.x, y: pdf.y })
 			switch (element.type) {
 				case 'text':
-					this.handleText(pdf, element.text, element.fontFamily, element.fontStyle, element.fontWeight, { ...element.options, fixed: false })
+					this.handleText(
+						pdf,
+						element.text,
+						element.fontFamily,
+						element.fontStyle,
+						element.fontWeight,
+						{ ...element.options, fixed: false },
+					)
 					break
 				case 'image':
 					this.handleImage(pdf, element.src, { ...element.options, fixed: false })
@@ -226,32 +236,42 @@ export class PDF<TProps extends Record<string, any>> {
 
 		if (nodeType === 'document') {
 			return { data: null, error: null }
-
 		} else if (nodeType === 'page') {
-			const { data: options, error: optionsError } = this.getNodeOptions<PageOptions>(node)
+			const { data: options, error: optionsError } =
+				this.getNodeOptions<PageOptions>(node)
 			if (optionsError) {
 				return { data: null, error: optionsError }
 			}
 			return await this.handlePage(pdf, options)
-
 		} else if (nodeType === 'text') {
-			const { data: options, error: optionsError } = this.getNodeOptions<TextOptions>(node)
+			const { data: options, error: optionsError } =
+				this.getNodeOptions<TextOptions>(node)
 			if (optionsError) {
 				return { data: null, error: optionsError }
 			}
 			const fontFamily = node.getAttribute('data-svelte-pdf-kit-font-family')
-			const fontStyle = node.getAttribute('data-svelte-pdf-kit-font-style') as FontStyle | null
-			const fontWeight = node.getAttribute('data-svelte-pdf-kit-font-weight') as FontWeight | null
-			return await this.handleText(pdf, node.textContent || '', fontFamily, fontStyle, fontWeight, options)
-
+			const fontStyle = node.getAttribute(
+				'data-svelte-pdf-kit-font-style',
+			) as FontStyle | null
+			const fontWeight = node.getAttribute(
+				'data-svelte-pdf-kit-font-weight',
+			) as FontWeight | null
+			return await this.handleText(
+				pdf,
+				node.textContent || '',
+				fontFamily,
+				fontStyle,
+				fontWeight,
+				options,
+			)
 		} else if (nodeType === 'image') {
 			const src = node.getAttribute('src')
-			const { data: options, error: optionsError } = this.getNodeOptions<ImageOptions>(node)
+			const { data: options, error: optionsError } =
+				this.getNodeOptions<ImageOptions>(node)
 			if (optionsError) {
 				return { data: null, error: optionsError }
 			}
 			return await this.handleImage(pdf, src || '', options)
-
 		} else if (nodeType === 'font') {
 			const fontFamily = node.getAttribute('data-svelte-pdf-kit-font-family')
 			if (!fontFamily) {
@@ -267,7 +287,8 @@ export class PDF<TProps extends Record<string, any>> {
 					error: new Error('No font definitions found on Font node'),
 				}
 			}
-			const { data: fonts, error: fontsError } = this.parseJsonFromHtml<FontDefinition[]>(fontDefinitions)
+			const { data: fonts, error: fontsError } =
+				this.parseJsonFromHtml<FontDefinition[]>(fontDefinitions)
 			if (fontsError) {
 				return { data: null, error: fontsError }
 			}
@@ -379,7 +400,10 @@ export class PDF<TProps extends Record<string, any>> {
 		return { data: null, error: null }
 	}
 
-	private async handleFont(fontFamily: string, fonts: FontDefinition[]): Promise<PDFResult<null>> {
+	private async handleFont(
+		fontFamily: string,
+		fonts: FontDefinition[],
+	): Promise<PDFResult<null>> {
 		if (!fontFamily) {
 			return {
 				data: null,

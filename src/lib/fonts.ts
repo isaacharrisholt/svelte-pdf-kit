@@ -42,7 +42,7 @@ class FontFamily {
 		}
 
 		if (!font.buffer) {
-			const { data: buf, error: fontFetchError } = await fetchFile(font.src)
+			const { data: buf, error: fontFetchError } = await fetchFile(font.src, fetch)
 			if (fontFetchError) {
 				return { data: null, error: fontFetchError }
 			}
