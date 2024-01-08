@@ -2,9 +2,26 @@
 	import type { FontDefinition, FontStyle, FontWeight } from '$lib/types'
 	import { DEFAULT_FONT_STYLE, DEFAULT_FONT_WEIGHT, FONT_WEIGHTS } from '$lib/types'
 
+	/**
+	 * The source of the font. Will check the filesystem first, then the web.
+	 * Specify an array of objects to support multiple weights and styles.
+	 */
 	export let src: string | FontDefinition[]
+	/**
+	 * The name of the font family.
+	 */
 	export let family: string
+	/**
+	 * The font style to use for text.
+	 * Defaults to `normal`.
+	 * Ignored if `src` is an array.
+	 */
 	export let style: FontStyle = DEFAULT_FONT_STYLE
+	/**
+	 * The font weight to use for text.
+	 * Defaults to `400`.
+	 * Ignored if `src` is an array.
+	 */
 	export let weight: FontWeight = DEFAULT_FONT_WEIGHT
 
 	const fonts: FontDefinition[] = Array.isArray(src) ? src : [{ src, style, weight }]
