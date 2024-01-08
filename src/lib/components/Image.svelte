@@ -4,6 +4,11 @@
 	// Custom options
 	export let src: string
 	export let alt: string
+	/**
+	 * Display this element in this location on every page.
+	 */
+	// TODO: get fixed images working
+	// export let fixed: ImageOptions['fixed'] = undefined
 
 	// PDFKit options
 	export let align: ImageOptions['align'] = undefined
@@ -28,6 +33,7 @@
 		scale,
 		valign,
 		width,
+		// fixed,
 	} satisfies ImageOptions
 	$: hasOptions = Object.values(options).some((value) => value !== undefined)
 </script>

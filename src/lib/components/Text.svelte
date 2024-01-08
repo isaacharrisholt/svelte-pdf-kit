@@ -15,6 +15,10 @@
 	 * The font weight to use for text.
 	 */
 	export let weight: FontWeight | null = null
+	/**
+	 * Display this element in this location on every page.
+	 */
+	export let fixed: TextOptions['fixed'] = undefined
 
 	// PDFKit options
 	/**
@@ -156,6 +160,7 @@
 		underline,
 		width,
 		wordSpacing,
+		fixed,
 	} satisfies TextOptions
 	$: hasOptions = Object.values(options).some((value) => value !== undefined)
 </script>

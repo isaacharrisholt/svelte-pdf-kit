@@ -41,8 +41,12 @@ export type FontDefinition = {
 
 // Options
 export type DocumentOptions = NonNullable<ConstructorParameters<typeof PDFDocument>[0]>
-export type TextOptions = NonNullable<Parameters<typeof PDFDocument.text>[1]>
-export type ImageOptions = NonNullable<Parameters<typeof PDFDocument.image>[1]>
+export type TextOptions = NonNullable<Parameters<typeof PDFDocument.text>[1]> & {
+	fixed?: boolean
+}
+export type ImageOptions = NonNullable<Parameters<typeof PDFDocument.image>[1]> & {
+	fixed?: boolean
+}
 export type PageOptions = Pick<DocumentOptions, 'layout' | 'margin' | 'font' | 'margin' | 'margins'> & {
 	size?: PageSize
 }

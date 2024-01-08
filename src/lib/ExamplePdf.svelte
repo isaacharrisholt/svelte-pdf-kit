@@ -22,15 +22,21 @@
 	/>
 
 	<Page>
-		<Text font="Poppins">This is my document</Text>
+		<Text font="Poppins" fixed>This is my document</Text>
 		<Text font="Poppins" align="right" columns={2} style="italic" weight="medium"
 			>Another line</Text
 		>
 		<Image src="/favicon.png" alt="" width={50} />
 	</Page>
 
-	<Page orientation="landscape">
+	<Page>
 		<Text font="Poppins" align="center">This is page 2!</Text>
-		<Image src="/favicon.png" alt="" width={150} />
+		<Text font="Poppins" align="center">This is page 2!</Text>
+		<Text font="Poppins" align="center">This is page 2!</Text>
+		<Text font="Poppins" align="center">This is page 2!</Text>
+		<Image src="/favicon.png" alt="" width={150} fixed />
+		<Text font="Poppins" fixed>This is my document fixed 2</Text>
 	</Page>
+
+	<Page></Page>
 </Document>
