@@ -29,11 +29,12 @@
 		valign,
 		width,
 	} satisfies ImageOptions
+	$: hasOptions = Object.values(options).some((value) => value !== undefined)
 </script>
 
 <img
 	data-svelte-pdf-kit-type="image"
-	data-svelte-pdf-kit-options={options && JSON.stringify(options)}
+	data-svelte-pdf-kit-options={hasOptions && JSON.stringify(options)}
 	{src}
 	{alt}
 	{...options}
