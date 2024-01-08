@@ -1,0 +1,10 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "svelte-pdf-kit": "0.0.1-alpha.0"
+  },
+  "changesets": [
+    "honest-fishes-joke"
+  ]
+}
