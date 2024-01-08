@@ -23,17 +23,14 @@
 
 	<Page>
 		<Text font="Poppins">This is my document</Text>
-		<Text
-			font="Poppins"
-			options={{ align: 'right', columns: 2 }}
-			style="italic"
-			weight="medium">Another line</Text
+		<Text font="Poppins" align="right" columns={2} style="italic" weight="medium"
+			>Another line</Text
 		>
 		<Image src="/favicon.png" alt="" options={{ width: 50 }} />
 	</Page>
 
 	<Page>
-		<Text font="Poppins" options={{ align: 'center' }}>This is page 2!</Text>
+		<Text font="Poppins" align="center">This is page 2!</Text>
 		<Image src="/favicon.png" alt="" options={{ width: 150 }} />
 	</Page>
 </Document>
